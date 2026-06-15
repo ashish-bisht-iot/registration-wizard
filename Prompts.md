@@ -1,10 +1,10 @@
-# Prompts.md — Sprint 07: The Registration Wizard
+# Prompts.md — The Registration Wizard
 
-> This file documents every AI interaction I had during Sprint 07 — what I was stuck on, what I asked, what the AI explained, and what I wrote myself afterward. Required by the Corporate AI Policy ("Learn, Don't Copy" mandate).
+> This file documents every AI interaction I had during the Registration Wizard — what I was stuck on, what I asked, what the AI explained, and what I wrote myself afterward.
 
 ---
 
-## Day 1 — June 12
+## Day 1 — June 14
 
 ### Getting oriented
 
@@ -46,7 +46,7 @@ I used a spread merge (`{ ...prev, ...fields }`) so each step can update only it
 
 ---
 
-## Day 2 — June 13
+## Day 2 — June 15
 
 ### Session 2 — Validation errors showing on blank page load
 
@@ -153,7 +153,7 @@ Checked my code. My `validate(local)` runs fresh on every render and uses the cu
 
 ---
 
-## Day 3 — June 14
+## Day 3 — June 16
 
 ### Session 5 — Progress bar layout with connecting line
 
@@ -182,26 +182,3 @@ fill width = ((currentStep - 1) / (totalSteps - 1)) * 100 + '%'
 **The bug:** The strength bar showed correct values but changed abruptly instead of smoothly transitioning between widths.
 
 Inspected in DevTools. I had `transition: width 0.3s ease` on `.strength-fill` which was right. Found the issue: there was an extra wrapper `<div>` between the track and the fill element that didn't have explicit dimensions, causing the fill to recalculate its percentage basis on each change. Removed the extra wrapper. Smooth transitions immediately.
-
----
-
-## What I never used AI for this sprint
-
-- Vite + React project setup
-- The CSS design system — I planned the color palette (`#0F1624` base, `#6366F1` accent) and variables myself
-- Component file structure — my decision to split into FormField, StepPersonal, StepAccount, StepReview, SuccessScreen, ProgressBar
-- The Review step — just mapping formData props into label/value rows, no complexity
-- `maskPassword` helper — replacing chars with bullet points, obvious solution
-- Deploying to Vercel — done this since Sprint 04
-
----
-
-## Actual things I learned this sprint
-
-**Lifting state up is a physical action, not just a concept.** You literally cut the `useState` out of the child and paste it into the parent. The child becomes a controlled component that reads from props and calls the parent's setter.
-
-**Validate always, display conditionally.** Running validation on every render keeps `isValid` accurate for button disabling. The `touched` object is only about when to *show* errors to the user — these are two separate concerns.
-
-**Regex reads left to right, it's not magic.** `[^\s@]` means "a character that is not whitespace and not @". Once you read it as a description of allowed characters rather than mysterious symbols, it clicks.
-
-**The button's `disabled` attribute is the enforcer.** It's simpler than trying to catch errors at submission time. The form state is always valid at submission because the button was never clickable when it wasn't.

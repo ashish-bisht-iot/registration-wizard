@@ -1,6 +1,4 @@
-# 🧙‍♂️ Sprint 07 — The Registration Wizard
-
-> **Sprint 07 | Phase 3: Core Engineering | Prodesk IT Internship**
+# The Registration Wizard
 
 A multi-step onboarding wizard built in React + Vite. The kind of segmented, validated, state-persistent form you find in real SaaS and FinTech products — not a 20-field wall of inputs.
 
@@ -8,66 +6,64 @@ A multi-step onboarding wizard built in React + Vite. The kind of segmented, val
 
 | | |
 |---|---|
-| 🔗 **Live Demo** | [sprint07.vercel.app](https://your-link-here.vercel.app) |
-| 📁 **Repository** | [github.com/ashish-bisht-iot/sprint07](https://github.com/ashish-bisht-iot/sprint07) |
-| 🎥 **Demo Video** | [3-minute walkthrough](https://your-video-link-here) |
-| 🗓 **Sprint** | June 12 – June 18, 2025 |
+| **Live Demo** | [link](after deployment) |
+| **Repository** | [github.com/ashish-bisht-iot/registration-wizard](https://github.com/ashish-bisht-iot/registration-wizard) |
 
 <br/>
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
-### Step 1 — Personal Information
+### Personal Information
 
 > First name, last name, date of birth. The **Continue** button stays disabled until both name fields have at least 2 characters and a date is selected.
 
-![Step 1 — Personal Info](./screenshots/step1-personal-info.png)
+![Personal Info](./screenshots/step1-personal-info.png)
 
 ---
 
-### Step 1 — Validation Errors
+### Validation Errors
 
 > Error messages only appear after the user has interacted with a field ("touched" state pattern). Empty form on load = no red errors.
 
-![Step 1 — Validation](./screenshots/step1-validation.png)
+![Validation](./screenshots/step1-validation.png)
 
 ---
 
-### Step 2 — Account Details
+### Account Details
 
 > Email with regex validation, password with real-time strength meter, confirm password match check. Show/hide toggles on both password fields.
 
-![Step 2 — Account Details](./screenshots/step2-account.png)
+![Account Details](./screenshots/step2-account.png)
 
 ---
 
-### Step 2 — Real-Time Error Messages
+### Real-Time Error Messages
 
 > Email error fires as soon as the format is wrong (missing @). Password strength meter updates on every keystroke. Confirm password mismatch shows immediately.
 
-![Step 2 — Errors](./screenshots/step2-errors.png)
+![Errors](./screenshots/step2-errors.png)
 
 ---
 
-### Step 2 — Password Visible (Show/Hide Toggle)
+### Password Visible (Show/Hide Toggle)
 
 > Eye icon toggles the input between `type="password"` and `type="text"`. Separate toggle for each password field — toggling one doesn't affect the other.
 
-![Step 2 — Show Password](./screenshots/step2-show-password.png)
+![Show Password](./screenshots/step2-show-password.png)
 
 ---
 
-### Step 3 — Review & Submit
+### Review & Submit
 
 > Summary of all collected data before final submission. Password is masked with bullet characters (●). Back button still works here — data is preserved.
 
-![Step 3 — Review](./screenshots/step3-review.png)
+![Review](./screenshots/step3-review.png)
 
 ---
 
-### Back Button — State Preserved ✅
+### Back Button — State Preserved
 
 > This is the core feature of the sprint. Filled in Step 1 → navigated to Step 2 → clicked Back → **Step 1 data is still there.** This works because of lifted state.
 
@@ -89,38 +85,8 @@ A multi-step onboarding wizard built in React + Vite. The kind of segmented, val
 
 ![Console Log](./screenshots/console-log.png)
 
----
 
-## ✅ Sprint Requirements Checklist
-
-### Phase 1 — Base MVP (P0 — Mandatory)
-
-| Requirement | Status |
-|---|---|
-| 3 distinct views via conditional rendering | ✅ |
-| Step 1: Personal Info (First Name, Last Name, DOB) | ✅ |
-| Step 2: Account Details (Email, Password, Confirm) | ✅ |
-| Step 3: Review — renders summary of all captured data | ✅ |
-| Next and Back navigation between steps | ✅ |
-| Lifted state — data persists when navigating Back | ✅ |
-| Submit logs `formData` to console | ✅ |
-| Submit triggers success UI state | ✅ |
-
-### Phase 2 — UX Polish (P1)
-
-| Requirement | Status |
-|---|---|
-| Real-time `onChange` validation (not on submit) | ✅ |
-| Email: error if no `@` symbol | ✅ |
-| Password: minimum 8 characters | ✅ |
-| Confirm Password: must match exactly | ✅ |
-| "Next" disabled until all current-step fields are valid | ✅ |
-| Show/Hide password toggle (eye icon) | ✅ |
-| Progress indicator ("Step X of 3") | ✅ |
-
----
-
-## 🏗️ How It's Built
+## How It's Built
 
 ### The Core Problem: State Across Steps
 
@@ -242,7 +208,7 @@ Separate `showConfirm` state for the confirm password field — independent togg
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 sprint07/
@@ -268,62 +234,4 @@ sprint07/
         ├── SuccessScreen.jsx       ← post-submit screen
         ├── SuccessScreen.css
         └── Steps.css               ← shared: buttons, field-row, strength bar
-```
 
----
-
-## 🚀 Running Locally
-
-```bash
-# Clone
-git clone https://github.com/ashish-bisht-iot/sprint07.git
-cd sprint07
-
-# Install
-npm install
-
-# Start dev server
-npm run dev
-# → http://localhost:5173
-```
-
----
-
-## 🌐 Deploying to Vercel
-
-1. Push repo to GitHub (must be public)
-2. Go to [vercel.com](https://vercel.com) → Add New Project → Import
-3. Framework Preset: **Vite**
-4. Build Command: `npm run build`
-5. Output Directory: `dist`
-6. Deploy
-
-> ⚠️ **Vercel is case-sensitive.** `import FormField from './formfield'` fails if the file is named `FormField.jsx`. All imports in this project use the exact filename casing.
-
----
-
-## 📸 How to Add Screenshots
-
-1. Run locally: `npm run dev` → open `http://localhost:5173`
-2. Create a `/screenshots` folder in the project root
-3. Capture each state and save with these exact filenames:
-
-```
-screenshots/
-  step1-personal-info.png       ← Step 1 clean/empty
-  step1-validation.png          ← Step 1 with error messages showing
-  step2-account.png             ← Step 2 clean
-  step2-errors.png              ← Step 2 with email/password errors
-  step2-show-password.png       ← Step 2 with password text visible
-  step3-review.png              ← Review screen with all data filled
-  back-button-state.png         ← Step 1 after navigating back (data still there)
-  success-screen.png            ← Post-submit success screen
-  console-log.png               ← DevTools console showing formData object
-```
-
-4. `git add screenshots/ && git commit -m "add screenshots" && git push`
-5. GitHub renders them inline in the README automatically ✅
-
----
-
-*Ashish Bisht — Sprint 07 — Prodesk IT Internship*

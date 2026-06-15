@@ -6,8 +6,6 @@ import StepReview from './components/StepReview'
 import SuccessScreen from './components/SuccessScreen'
 import './App.css'
 
-// This is the "lifted state" the sprint asks for.
-// One source of truth for all form data, held in the parent.
 const INITIAL_FORM_DATA = {
   firstName: '',
   lastName: '',
@@ -24,7 +22,7 @@ export default function App() {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA)
   const [submitted, setSubmitted] = useState(false)
 
-  // Partial update — merge incoming fields into the running payload
+  
   function updateFormData(fields) {
     setFormData(prev => ({ ...prev, ...fields }))
   }
