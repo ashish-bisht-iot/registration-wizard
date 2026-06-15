@@ -6,8 +6,8 @@ A multi-step onboarding wizard built in React + Vite. The kind of segmented, val
 
 | | |
 |---|---|
-| **Live Demo** | [https://registration-wizard.vercel](https://registration-wizard-gamma.vercel.app/) |
-| **Repository** | [github.com/ashish-bisht-iot/registration-wizard](https://github.com/ashish-bisht-iot/registration-wizard) |
+| **Live Demo** | [registration-wizard.vercel.com](https://registration-wizard-gamma.vercel.app/) |
+| **Repository** | [github/ashish-bisht-iot/registration-wizard](https://github.com/ashish-bisht-iot/registration-wizard) |
 
 <br/>
 
