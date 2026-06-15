@@ -129,7 +129,7 @@ useEffect(() => {
 
 ### onChange Validation + Touched State
 
-Two separate concerns — don't mix them:
+Two separate concerns:
 
 1. **Validation runs on every render** — keeps `isValid` accurate for button disabling
 2. **Errors only display after the field is touched** — no red errors on a blank form
@@ -234,4 +234,3 @@ sprint07/
         ├── SuccessScreen.jsx       ← post-submit screen
         ├── SuccessScreen.css
         └── Steps.css               ← shared: buttons, field-row, strength bar
-
