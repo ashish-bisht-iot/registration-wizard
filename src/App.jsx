@@ -6,37 +6,33 @@ import StepReview from './components/StepReview'
 import SuccessScreen from './components/SuccessScreen'
 import './App.css'
 
-const INITIAL_FORM_DATA = {
-  firstName: '',
-  lastName: '',
-  dateOfBirth: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-}
-
-const TOTAL_STEPS = 3
-
 export default function App() {
   const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState(INITIAL_FORM_DATA)
   const [submitted, setSubmitted] = useState(false)
 
-  
-  function updateFormData(fields) {
-    setFormData(prev => ({ ...prev, ...fields }))
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
+
+  function updateFormData(newFields) {
+    setFormData(prev => ({ ...prev, ...newFields }))
   }
 
-  function handleNext() {
-    if (step < TOTAL_STEPS) setStep(s => s + 1)
+  function goNext() {
+    setStep(s => s + 1)
   }
 
-  function handleBack() {
-    if (step > 1) setStep(s => s - 1)
+  function goBack() {
+    setStep(s => s - 1)
   }
 
   function handleSubmit() {
-    console.log('=== Registration Payload ===')
+    console.log('form submitted!')
     console.log(formData)
     setSubmitted(true)
   }
@@ -48,7 +44,6 @@ export default function App() {
   return (
     <div className="app-wrapper">
       <div className="wizard-card">
-        {/* Brand header */}
         <div className="wizard-header">
           <span className="brand-logo">
             <span className="brand-icon">⬡</span>
@@ -57,28 +52,28 @@ export default function App() {
           <p className="wizard-tagline">Create your account</p>
         </div>
 
-        <ProgressBar currentStep={step} totalSteps={TOTAL_STEPS} />
+        <ProgressBar currentStep={step} totalSteps={3} />
 
         <div className="wizard-body">
           {step === 1 && (
             <StepPersonal
               formData={formData}
               updateFormData={updateFormData}
-              onNext={handleNext}
+              onNext={goNext}
             />
           )}
           {step === 2 && (
             <StepAccount
               formData={formData}
               updateFormData={updateFormData}
-              onNext={handleNext}
-              onBack={handleBack}
+              onNext={goNext}
+              onBack={goBack}
             />
           )}
           {step === 3 && (
             <StepReview
               formData={formData}
-              onBack={handleBack}
+              onBack={goBack}
               onSubmit={handleSubmit}
             />
           )}

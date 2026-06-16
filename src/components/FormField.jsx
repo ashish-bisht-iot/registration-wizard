@@ -1,22 +1,13 @@
 import './FormField.css'
 
-// Reusable field: renders label, input, and inline error message.
-// error prop is a string — empty/undefined means no error shown.
-export default function FormField({
-  label,
-  id,
-  type = 'text',
-  value,
-  onChange,
-  error,
-  placeholder,
-  suffix, // optional node rendered inside the field (e.g. show/hide toggle)
-}) {
+// reusable input component that can be used for all form fields in the app
+export default function FormField({ label, id, type = 'text', value, onChange, error, placeholder, suffix }) {
   return (
     <div className="field-group">
       <label className="field-label" htmlFor={id}>
         {label}
       </label>
+
       <div className={`field-input-wrap ${error ? 'has-error' : ''}`}>
         <input
           id={id}
@@ -29,6 +20,8 @@ export default function FormField({
         />
         {suffix && <div className="field-suffix">{suffix}</div>}
       </div>
+
+      {/* only render the error paragraph if there's actually an error */}
       {error && <p className="field-error">{error}</p>}
     </div>
   )

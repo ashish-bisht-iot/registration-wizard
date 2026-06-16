@@ -1,44 +1,50 @@
 import './Steps.css'
 import './StepReview.css'
 
-// Mask the password so it shows as dots in the summary
-function maskPassword(pwd) {
-  return '•'.repeat(pwd.length)
-}
-
-function ReviewRow({ label, value }) {
-  return (
-    <div className="review-row">
-      <span className="review-label">{label}</span>
-      <span className="review-value">{value}</span>
-    </div>
-  )
-}
-
 export default function StepReview({ formData, onBack, onSubmit }) {
   const { firstName, lastName, dateOfBirth, email, password } = formData
+
+  // replace each character with a dot so password doesn't show in plaintext
+  const maskedPassword = '•'.repeat(password.length)
 
   return (
     <div className="step-wrapper">
       <div className="step-heading">
         <h2 className="step-title">Review & Confirm</h2>
-        <p className="step-desc">Everything look right? Submitting will log your payload to the console.</p>
+        <p className="step-desc">Double-check everything before submitting.</p>
       </div>
 
       <div className="review-card">
         <div className="review-section">
           <p className="review-section-title">Personal Info</p>
-          <ReviewRow label="First Name"    value={firstName} />
-          <ReviewRow label="Last Name"     value={lastName} />
-          <ReviewRow label="Date of Birth" value={dateOfBirth} />
+
+          <div className="review-row">
+            <span className="review-label">First Name</span>
+            <span className="review-value">{firstName}</span>
+          </div>
+          <div className="review-row">
+            <span className="review-label">Last Name</span>
+            <span className="review-value">{lastName}</span>
+          </div>
+          <div className="review-row">
+            <span className="review-label">Date of Birth</span>
+            <span className="review-value">{dateOfBirth}</span>
+          </div>
         </div>
 
         <div className="review-divider" />
 
         <div className="review-section">
           <p className="review-section-title">Account Details</p>
-          <ReviewRow label="Email"    value={email} />
-          <ReviewRow label="Password" value={maskPassword(password)} />
+
+          <div className="review-row">
+            <span className="review-label">Email</span>
+            <span className="review-value">{email}</span>
+          </div>
+          <div className="review-row">
+            <span className="review-label">Password</span>
+            <span className="review-value">{maskedPassword}</span>
+          </div>
         </div>
       </div>
 

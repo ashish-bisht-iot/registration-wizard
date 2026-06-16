@@ -1,27 +1,29 @@
 import './ProgressBar.css'
 
-const STEP_LABELS = ['Personal Info', 'Account Details', 'Review']
+const stepLabels = ['Personal Info', 'Account Details', 'Review']
 
 export default function ProgressBar({ currentStep, totalSteps }) {
-  const pct = ((currentStep - 1) / (totalSteps - 1)) * 100
+  // how far the connecting line should fill
+  // step 1 = 0%, step 2 = 50%, step 3 = 100%
+  const fillPercent = ((currentStep - 1) / (totalSteps - 1)) * 100
 
   return (
     <div className="progress-wrapper">
-      {/* Step dots with connecting track */}
       <div className="step-track-container">
+        {/* the grey line + filled indigo line sit behind the dots */}
         <div className="track-line">
-          <div className="track-fill" style={{ width: `${pct}%` }} />
+          <div className="track-fill" style={{ width: `${fillPercent}%` }} />
         </div>
+
         <div className="step-dots">
-          {STEP_LABELS.map((label, i) => {
+          {stepLabels.map((label, i) => {
             const num = i + 1
             const isDone = num < currentStep
             const isActive = num === currentStep
+
             return (
               <div key={label} className="dot-group">
-                <div
-                  className={`step-dot ${isDone ? 'done' : ''} ${isActive ? 'active' : ''}`}
-                >
+                <div className={`step-dot ${isDone ? 'done' : ''} ${isActive ? 'active' : ''}`}>
                   {isDone ? '✓' : num}
                 </div>
                 <span className={`dot-label ${isActive ? 'label-active' : ''}`}>
@@ -33,7 +35,6 @@ export default function ProgressBar({ currentStep, totalSteps }) {
         </div>
       </div>
 
-      {/* Counter text */}
       <p className="step-counter">Step {currentStep} of {totalSteps}</p>
     </div>
   )

@@ -2,31 +2,34 @@ import { useState, useEffect } from 'react'
 import FormField from './FormField'
 import './Steps.css'
 
-// Very simple validation for step 1:
-// Names must be at least 2 chars, DOB must exist.
-function validate(data) {
-  const errors = {}
-  if (data.firstName.trim().length < 2) errors.firstName = 'First name must be at least 2 characters.'
-  if (data.lastName.trim().length < 2)  errors.lastName  = 'Last name must be at least 2 characters.'
-  if (!data.dateOfBirth)                errors.dateOfBirth = 'Date of birth is required.'
-  return errors
-}
-
 export default function StepPersonal({ formData, updateFormData, onNext }) {
-  // Local mirror of the three fields so we can run onChange validation
+  // this syncs up to the parent via useEffect below
   const [local, setLocal] = useState({
-    firstName:   formData.firstName,
-    lastName:    formData.lastName,
+    firstName: formData.firstName,
+    lastName: formData.lastName,
     dateOfBirth: formData.dateOfBirth,
   })
+
+  // touched tracks which fields the user has clicked into
+  // without this, errors show on page load before user types anything
   const [touched, setTouched] = useState({})
 
-  // Push local changes up to the parent so state persists across step navigation
   useEffect(() => {
     updateFormData(local)
   }, [local])
 
-  const errors = validate(local)
+  // validation errors object — recomputed on every render
+  const errors = {}
+  if (local.firstName.trim().length < 2) {
+    errors.firstName = 'First name must be at least 2 characters'
+  }
+  if (local.lastName.trim().length < 2) {
+    errors.lastName = 'Last name is too short'
+  }
+  if (!local.dateOfBirth) {
+    errors.dateOfBirth = 'Please enter your date of birth'
+  }
+
   const isValid = Object.keys(errors).length === 0
 
   function handleChange(field, value) {
@@ -38,10 +41,11 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
     <div className="step-wrapper">
       <div className="step-heading">
         <h2 className="step-title">Personal Information</h2>
-        <p className="step-desc">Let's start with the basics. This helps us verify your identity.</p>
+        <p className="step-desc">Let's start with the basics.</p>
       </div>
 
       <div className="fields-stack">
+        {/* name row — two columns side by side */}
         <div className="field-row">
           <FormField
             label="First Name"
@@ -72,6 +76,7 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
       </div>
 
       <div className="step-actions">
+        {/* button stays disabled until all 3 fields pass */}
         <button
           type="button"
           className="btn-primary"
