@@ -19,7 +19,7 @@ A multi-step onboarding wizard built in React + Vite. The kind of segmented, val
 
 > First name, last name, date of birth. The **Continue** button stays disabled until both name fields have at least 2 characters and a date is selected.
 
-![Personal Info](./screenshots/step1-personal-info.png)
+![Personal Info](./screenshots/personal-info.png)
 
 ---
 
@@ -27,7 +27,7 @@ A multi-step onboarding wizard built in React + Vite. The kind of segmented, val
 
 > Error messages only appear after the user has interacted with a field ("touched" state pattern). Empty form on load = no red errors.
 
-![Validation](./screenshots/step1-validation.png)
+![Validation](./screenshots/validation.png)
 
 ---
 
@@ -35,7 +35,7 @@ A multi-step onboarding wizard built in React + Vite. The kind of segmented, val
 
 > Email with regex validation, password with real-time strength meter, confirm password match check. Show/hide toggles on both password fields.
 
-![Account Details](./screenshots/step2-account.png)
+![Account Details](./screenshots/account.png)
 
 ---
 
@@ -43,7 +43,7 @@ A multi-step onboarding wizard built in React + Vite. The kind of segmented, val
 
 > Email error fires as soon as the format is wrong (missing @). Password strength meter updates on every keystroke. Confirm password mismatch shows immediately.
 
-![Errors](./screenshots/step2-errors.png)
+![Errors](./screenshots/errors.png)
 
 ---
 
@@ -51,7 +51,7 @@ A multi-step onboarding wizard built in React + Vite. The kind of segmented, val
 
 > Eye icon toggles the input between `type="password"` and `type="text"`. Separate toggle for each password field — toggling one doesn't affect the other.
 
-![Show Password](./screenshots/step2-show-password.png)
+![Show Password](./screenshots/show-password.png)
 
 ---
 
@@ -59,7 +59,7 @@ A multi-step onboarding wizard built in React + Vite. The kind of segmented, val
 
 > Summary of all collected data before final submission. Password is masked with bullet characters (●). Back button still works here — data is preserved.
 
-![Review](./screenshots/step3-review.png)
+![Review](./screenshots/review.png)
 
 ---
 
