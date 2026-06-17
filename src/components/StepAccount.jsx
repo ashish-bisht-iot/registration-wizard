@@ -30,7 +30,7 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
   const errors = {}
 
   if (!EMAIL_REGEX.test(local.email)) {
-    errors.email = 'Enter a valid email — needs an @ symbol'
+    errors.email = 'Enter a valid email'
   }
   if (local.password.length < 8) {
     errors.password = 'Password must be at least 8 characters'

@@ -3,7 +3,6 @@ import './ProgressBar.css'
 const stepLabels = ['Personal Info', 'Account Details', 'Review']
 
 export default function ProgressBar({ currentStep, totalSteps }) {
-  // how far the connecting line should fill
   // step 1 = 0%, step 2 = 50%, step 3 = 100%
   const fillPercent = ((currentStep - 1) / (totalSteps - 1)) * 100
 
