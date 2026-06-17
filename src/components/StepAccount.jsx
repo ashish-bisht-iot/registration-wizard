@@ -83,7 +83,7 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
                 className="eye-toggle"
                 onClick={() => setShowPassword(s => !s)}
               >
-                {showPassword ? '🙈' : '👁'}
+                {showPassword ? 'Hide' : 'Show'}
               </button>
             }
           />
@@ -117,7 +117,7 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
               className="eye-toggle"
               onClick={() => setShowConfirm(s => !s)}
             >
-              {showConfirm ? '🙈' : '👁'}
+              {showConfirm ? 'Hide' : 'Show'}
             </button>
           }
         />
