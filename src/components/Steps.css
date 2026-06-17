@@ -35,6 +35,10 @@
   gap: 12px;
 }
 
+.field-row > * {
+  min-width: 0;
+}
+
 /* Buttons */
 .step-actions {
   display: flex;
@@ -150,4 +154,10 @@
   font-weight: 600;
   min-width: 44px;
   text-align: right;
+}
+
+@media (max-width: 480px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
 }
