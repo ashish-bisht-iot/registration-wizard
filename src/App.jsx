@@ -47,7 +47,7 @@ export default function App() {
         <div className="wizard-header">
           <span className="brand-logo">
             <span className="brand-icon">⬡</span>
-            OnboardIQ
+            Registration Wizard
           </span>
           <p className="wizard-tagline">Create your account</p>
         </div>
