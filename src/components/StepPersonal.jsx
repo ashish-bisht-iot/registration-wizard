@@ -3,6 +3,7 @@ import FormField from './FormField'
 import './Steps.css'
 
 export default function StepPersonal({ formData, updateFormData, onNext }) {
+
   const [local, setLocal] = useState({
     firstName: formData.firstName,
     lastName: formData.lastName,
@@ -36,26 +37,26 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
     setTouched(prev => ({ ...prev, [field]: true }))
   }
 
-  // Enter on First Name -> jump to Last Name
   function handleFirstNameKeyDown(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
+      e.stopPropagation()
       lastNameRef.current?.focus()
     }
   }
 
-  // Enter on Last Name -> jump to Date of Birth
   function handleLastNameKeyDown(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
+      e.stopPropagation()
       dobRef.current?.focus()
     }
   }
 
-  // Enter on Date of Birth -> submit step if everything is valid
   function handleDobKeyDown(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
+      e.stopPropagation()
       if (isValid) onNext()
     }
   }
@@ -68,7 +69,7 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
       </div>
 
       <div className="fields-stack">
-        {/* name row — two columns side by side */}
+        {/* name row */}
         <div className="field-row">
           <FormField
             label="First Name"

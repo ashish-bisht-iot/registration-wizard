@@ -30,7 +30,7 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
   const errors = {}
 
   if (!EMAIL_REGEX.test(local.email)) {
-    errors.email = 'Enter a valid email'
+    errors.email = 'Enter a valid email — needs an @ symbol'
   }
   if (local.password.length < 8) {
     errors.password = 'Password must be at least 8 characters'
@@ -52,10 +52,10 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
 
   const strength = getStrength(local.password)
 
-  // Enter on Email -> jump to Password
   function handleEmailKeyDown(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
+      e.stopPropagation()
       passwordRef.current?.focus()
     }
   }
@@ -63,6 +63,7 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
   function handlePasswordKeyDown(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
+      e.stopPropagation()
       confirmRef.current?.focus()
     }
   }
@@ -70,6 +71,7 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
   function handleConfirmKeyDown(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
+      e.stopPropagation()
       if (isValid) onNext()
     }
   }
