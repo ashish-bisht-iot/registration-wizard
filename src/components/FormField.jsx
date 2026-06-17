@@ -1,7 +1,10 @@
+import { forwardRef } from 'react'
 import './FormField.css'
 
-// reusable input component that can be used for all form fields in the app
-export default function FormField({ label, id, type = 'text', value, onChange, error, placeholder, suffix }) {
+const FormField = forwardRef(function FormField(
+  { label, id, type = 'text', value, onChange, onKeyDown, error, placeholder, suffix },
+  ref
+) {
   return (
     <div className="field-group">
       <label className="field-label" htmlFor={id}>
@@ -10,10 +13,12 @@ export default function FormField({ label, id, type = 'text', value, onChange, e
 
       <div className={`field-input-wrap ${error ? 'has-error' : ''}`}>
         <input
+          ref={ref}
           id={id}
           type={type}
           value={value}
           onChange={onChange}
+          onKeyDown={onKeyDown}
           placeholder={placeholder}
           className="field-input"
           autoComplete="off"
@@ -25,4 +30,6 @@ export default function FormField({ label, id, type = 'text', value, onChange, e
       {error && <p className="field-error">{error}</p>}
     </div>
   )
-}
+})
+
+export default FormField

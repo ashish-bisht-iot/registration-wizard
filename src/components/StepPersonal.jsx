@@ -1,24 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import FormField from './FormField'
 import './Steps.css'
 
 export default function StepPersonal({ formData, updateFormData, onNext }) {
-  // this syncs up to the parent via useEffect below
   const [local, setLocal] = useState({
     firstName: formData.firstName,
     lastName: formData.lastName,
     dateOfBirth: formData.dateOfBirth,
   })
 
-  // touched tracks which fields the user has clicked into
-  // without this, errors show on page load before user types anything
   const [touched, setTouched] = useState({})
+
+  const lastNameRef = useRef(null)
+  const dobRef = useRef(null)
 
   useEffect(() => {
     updateFormData(local)
   }, [local])
 
-  // validation errors object — recomputed on every render
   const errors = {}
   if (local.firstName.trim().length < 2) {
     errors.firstName = 'First name must be at least 2 characters'
@@ -37,6 +36,30 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
     setTouched(prev => ({ ...prev, [field]: true }))
   }
 
+  // Enter on First Name -> jump to Last Name
+  function handleFirstNameKeyDown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      lastNameRef.current?.focus()
+    }
+  }
+
+  // Enter on Last Name -> jump to Date of Birth
+  function handleLastNameKeyDown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      dobRef.current?.focus()
+    }
+  }
+
+  // Enter on Date of Birth -> submit step if everything is valid
+  function handleDobKeyDown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (isValid) onNext()
+    }
+  }
+
   return (
     <div className="step-wrapper">
       <div className="step-heading">
@@ -53,24 +76,29 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
             value={local.firstName}
             placeholder="Ashish"
             onChange={e => handleChange('firstName', e.target.value)}
+            onKeyDown={handleFirstNameKeyDown}
             error={touched.firstName ? errors.firstName : ''}
           />
           <FormField
+            ref={lastNameRef}
             label="Last Name"
             id="lastName"
             value={local.lastName}
             placeholder="Bisht"
             onChange={e => handleChange('lastName', e.target.value)}
+            onKeyDown={handleLastNameKeyDown}
             error={touched.lastName ? errors.lastName : ''}
           />
         </div>
 
         <FormField
+          ref={dobRef}
           label="Date of Birth"
           id="dateOfBirth"
           type="date"
           value={local.dateOfBirth}
           onChange={e => handleChange('dateOfBirth', e.target.value)}
+          onKeyDown={handleDobKeyDown}
           error={touched.dateOfBirth ? errors.dateOfBirth : ''}
         />
       </div>
