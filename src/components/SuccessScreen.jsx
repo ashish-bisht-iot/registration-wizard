@@ -10,7 +10,6 @@ export default function SuccessScreen({ name }) {
           Your registration payload has been logged to the console.
           In a real app this would trigger email verification.
         </p>
-        <p className="success-hint">Open DevTools → Console to see your data object.</p>
       </div>
     </div>
   )
