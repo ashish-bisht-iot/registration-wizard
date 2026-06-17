@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import FormField from './FormField'
 import './Steps.css'
 
@@ -15,6 +15,9 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
+  const passwordRef = useRef(null)
+  const confirmRef = useRef(null)
+
   useEffect(() => {
     updateFormData(local)
   }, [local])
@@ -24,7 +27,6 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
     setTouched(prev => ({ ...prev, [field]: true }))
   }
 
-  // build errors object fresh on every render
   const errors = {}
 
   if (!EMAIL_REGEX.test(local.email)) {
@@ -39,7 +41,7 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
 
   const isValid = Object.keys(errors).length === 0
 
-  // password strength — just based on length for now
+  // password strength
   function getStrength(pwd) {
     if (pwd.length === 0) return null
     if (pwd.length < 6) return { label: 'Weak', color: '#F43F5E', pct: 25 }
@@ -49,6 +51,28 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
   }
 
   const strength = getStrength(local.password)
+
+  // Enter on Email -> jump to Password
+  function handleEmailKeyDown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      passwordRef.current?.focus()
+    }
+  }
+
+  function handlePasswordKeyDown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      confirmRef.current?.focus()
+    }
+  }
+
+  function handleConfirmKeyDown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (isValid) onNext()
+    }
+  }
 
   return (
     <div className="step-wrapper">
@@ -65,17 +89,20 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
           value={local.email}
           placeholder="ashish@example.com"
           onChange={e => handleChange('email', e.target.value)}
+          onKeyDown={handleEmailKeyDown}
           error={touched.email ? errors.email : ''}
         />
 
         <div>
           <FormField
+            ref={passwordRef}
             label="Password"
             id="password"
             type={showPassword ? 'text' : 'password'}
             value={local.password}
             placeholder="Min. 8 characters"
             onChange={e => handleChange('password', e.target.value)}
+            onKeyDown={handlePasswordKeyDown}
             error={touched.password ? errors.password : ''}
             suffix={
               <button
@@ -87,7 +114,7 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
               </button>
             }
           />
-          {/* strength bar only shows after user starts typing */}
+          {/* strength bar only shows after typing */}
           {strength && (
             <div className="strength-bar-wrap">
               <div className="strength-track">
@@ -104,12 +131,14 @@ export default function StepAccount({ formData, updateFormData, onNext, onBack }
         </div>
 
         <FormField
+          ref={confirmRef}
           label="Confirm Password"
           id="confirmPassword"
           type={showConfirm ? 'text' : 'password'}
           value={local.confirmPassword}
           placeholder="Re-enter your password"
           onChange={e => handleChange('confirmPassword', e.target.value)}
+          onKeyDown={handleConfirmKeyDown}
           error={touched.confirmPassword ? errors.confirmPassword : ''}
           suffix={
             <button

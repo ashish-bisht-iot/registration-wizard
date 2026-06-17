@@ -1,11 +1,22 @@
+import { useEffect } from 'react'
 import './Steps.css'
 import './StepReview.css'
 
 export default function StepReview({ formData, onBack, onSubmit }) {
   const { firstName, lastName, dateOfBirth, email, password } = formData
 
-  // replace each character with a dot so password doesn't show in plaintext
   const maskedPassword = '•'.repeat(password.length)
+
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        onSubmit()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [onSubmit])
 
   return (
     <div className="step-wrapper">
