@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import './FormField.css'
 
 const FormField = forwardRef(function FormField(
-  { label, id, type = 'text', value, onChange, onKeyDown, error, placeholder, suffix },
+  { label, id, type = 'text', value, onChange, onKeyDown, onBlur, error, placeholder, suffix },
   ref
 ) {
   return (
@@ -19,6 +19,7 @@ const FormField = forwardRef(function FormField(
           value={value}
           onChange={onChange}
           onKeyDown={onKeyDown}
+          onBlur={onBlur}
           placeholder={placeholder}
           className="field-input"
           autoComplete="off"
@@ -26,7 +27,7 @@ const FormField = forwardRef(function FormField(
         {suffix && <div className="field-suffix">{suffix}</div>}
       </div>
 
-      {/* only render the error paragraph if there's actually an error */}
+      {/* error message */}
       {error && <p className="field-error">{error}</p>}
     </div>
   )

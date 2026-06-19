@@ -1,24 +1,16 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import FormField from './FormField'
 import './Steps.css'
 
 export default function StepPersonal({ formData, updateFormData, onNext }) {
-
   const [local, setLocal] = useState({
     firstName: formData.firstName,
     lastName: formData.lastName,
     dateOfBirth: formData.dateOfBirth,
   })
-
   const [touched, setTouched] = useState({})
-
   const lastNameRef = useRef(null)
   const dobRef = useRef(null)
-
-  useEffect(() => {
-    updateFormData(local)
-  }, [local])
-
   const errors = {}
   if (local.firstName.trim().length < 2) {
     errors.firstName = 'First name must be at least 2 characters'
@@ -37,6 +29,10 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
     setTouched(prev => ({ ...prev, [field]: true }))
   }
 
+  function handleBlur(field) {
+    updateFormData({ [field]: local[field] })
+  }
+
   function handleFirstNameKeyDown(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
@@ -44,7 +40,7 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
       lastNameRef.current?.focus()
     }
   }
-
+  
   function handleLastNameKeyDown(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
@@ -57,6 +53,8 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
     if (e.key === 'Enter') {
       e.preventDefault()
       e.stopPropagation()
+
+      updateFormData({ dateOfBirth: local.dateOfBirth })
       if (isValid) onNext()
     }
   }
@@ -77,6 +75,7 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
             value={local.firstName}
             placeholder="Ashish"
             onChange={e => handleChange('firstName', e.target.value)}
+            onBlur={() => handleBlur('firstName')}
             onKeyDown={handleFirstNameKeyDown}
             error={touched.firstName ? errors.firstName : ''}
           />
@@ -87,6 +86,7 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
             value={local.lastName}
             placeholder="Bisht"
             onChange={e => handleChange('lastName', e.target.value)}
+            onBlur={() => handleBlur('lastName')}
             onKeyDown={handleLastNameKeyDown}
             error={touched.lastName ? errors.lastName : ''}
           />
@@ -99,6 +99,7 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
           type="date"
           value={local.dateOfBirth}
           onChange={e => handleChange('dateOfBirth', e.target.value)}
+          onBlur={() => handleBlur('dateOfBirth')}
           onKeyDown={handleDobKeyDown}
           error={touched.dateOfBirth ? errors.dateOfBirth : ''}
         />
@@ -109,7 +110,10 @@ export default function StepPersonal({ formData, updateFormData, onNext }) {
         <button
           type="button"
           className="btn-primary"
-          onClick={onNext}
+          onClick={() => {
+            updateFormData(local)
+            onNext()
+          }}
           disabled={!isValid}
         >
           Continue →
