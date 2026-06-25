@@ -200,7 +200,7 @@ const [showPassword, setShowPassword] = useState(false)
   onChange={e => handleChange('password', e.target.value)}
 />
 <button type="button" onClick={() => setShowPassword(s => !s)}>
-  {showPassword ? '🙈' : '👁'}
+  {showPassword ? 'hide' : 'show'}
 </button>
 ```
 
